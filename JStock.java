@@ -24,10 +24,21 @@ public float sell (int num, float sharePrice){
 		{
 			Transaction t=transactions.peek();
 			t.sell(num-sellingShares);
-			capitalGain =capitalGain+(num-sellingShares)*(sharePrice-t.getSharePrice());
+			capitalGain +=(num-sellingShares)*(sharePrice-t.getSharePrice());
 			sellingShares=num;
 		}
 	}
 	return capitalGain;
+}
+public float getValue()
+{
+	LinkedQueue <Transaction> tempTransactions= new LinkedQueue<Transaction>();
+	float runningTotal=0;
+	while (transactions.peek()!=null)
+	{
+	runningTotal+=transactions.peek().getSharePrice()*transactions.peek().getSharePrice();
+    tempTransactions.enqueue(transactions.dequeue());
+	}
+	return runningTotal;
 }
 }
